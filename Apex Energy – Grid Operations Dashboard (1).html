@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Apex Energy – Grid Operations Dashboard</title>
+<style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0E1319;--cd:#161D26;--bd:#2A3441;--tx:#E8EDF3;--mu:#A9B4C2;--ok:#4FD1A5;--w:#FFB454;--f:#FF8C8C;--mt:#7DB8FF;--bl:#5AB0FF}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px system-ui,'Segoe UI',Roboto,sans-serif}
+.app{max-width:1920px;margin:0 auto;padding:16px 24px;display:flex;flex-direction:column;gap:12px}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;box-sizing:border-box}
+.h{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.t{font-size:15px;font-weight:600;margin:0}.m{color:var(--mu);font-size:12px}
+.kp{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.k{font-size:32px;font-weight:600;line-height:1.15}.u{font-size:16px;color:var(--mu);font-weight:400}.ks{font-size:13px;color:#C9D3DF}
+.ok{color:var(--ok)}.w{color:var(--w)}.f{color:var(--f)}.mt{color:var(--mt)}
+.main{display:grid;grid-template-columns:400px minmax(0,1fr) 520px;gap:12px;align-items:start}
+.col{display:flex;flex-direction:column;gap:8px}
+.lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:#C9D3DF;align-items:center}.lg span{white-space:nowrap}
+.ch2{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;margin:6px 0 4px}.ro{background:#0E1319;border:1px solid var(--bd);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600;color:#E8EDF3;min-height:18px}
+.g{padding:8px 0;border-top:1px solid var(--bd);margin-top:8px}.chs{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;margin-top:4px}
+button,select,input{background:var(--bg);color:var(--tx);border:1px solid #6B7A8C;border-radius:6px;font:inherit;font-size:13px;min-height:44px;padding:0 10px;cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible,svg:focus-visible,.r:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.seg{display:flex}.seg button{border-radius:0;margin-left:-1px;min-width:56px}.seg button:first-child{border-radius:6px 0 0 6px}.seg button:last-child{border-radius:0 6px 6px 0}
+button[aria-pressed=true]{background:#1F3A57;border:2px solid var(--bl);font-weight:600;position:relative}
+.gb{display:block;width:100%;text-align:left;background:none;border:0;padding:0;min-height:0;color:inherit}.gb[aria-pressed=true]{background:none;border:0;outline:2px solid var(--bl);outline-offset:4px;border-radius:4px}
+.mr{display:grid;grid-template-columns:92px 1fr 100px;gap:10px;align-items:center;font-size:12px;margin-top:6px;color:#C9D3DF}.mr b{text-align:right;color:var(--tx)}
+.tr{position:relative;height:8px;background:var(--bd);border-radius:4px}.tr i{display:block;height:100%;background:var(--bl);border-radius:4px}.tr u{position:absolute;top:-3px;width:2px;height:14px;background:#fff}
+.fl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}.fl label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--mu)}
+.rh,.r{display:grid;grid-template-columns:64px 112px 1fr;gap:10px;font-size:13px;padding:7px 4px;border-top:1px solid var(--bd)}.rh{color:var(--mu);font-size:12px}
+.r{cursor:pointer;border-radius:4px}.r:hover{background:#1D2733}.r[aria-selected=true]{background:#1F3A57;outline:2px solid var(--bl)}
+.tc{display:flex;flex-direction:column;gap:10px}.tc1,.tc2{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}.tc1{padding-bottom:10px;border-bottom:1px solid var(--bd)}.tc3{border-top:1px solid var(--bd);padding-top:8px}.tc2 #win{text-align:right;line-height:1.5}.bdg{border:1px solid var(--bl);color:var(--bl);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;white-space:nowrap}
+svg{display:block}dialog{background:var(--cd);color:var(--tx);border:1px solid #6B7A8C;border-radius:10px;padding:20px;width:420px}dialog::backdrop{background:#000a}
+dialog label{display:flex;justify-content:space-between;align-items:center;margin:10px 0;gap:12px}dialog input{width:110px}
+.kp>.c{min-width:0}.main>*{min-width:0}
+@media(max-width:1699px){.main{grid-template-columns:minmax(0,1fr) 440px;grid-template-areas:"mid side" "mid panel"}.main>aside{grid-area:side}.main>section.col{grid-area:mid}.main>#panel{grid-area:panel}.k{font-size:26px}.ks{font-size:12px}.kp{gap:8px}.app{padding:12px 16px}}
+@media(max-width:1099px){.main{grid-template-columns:minmax(0,1fr);grid-template-areas:"mid" "side" "panel"}.kp{grid-template-columns:repeat(2,minmax(0,1fr))}.app{padding:12px}header.h{flex-wrap:wrap}}
+</style></head><body><div class="app">
+<header class="h"><div><div style="font-size:24px;font-weight:600">Apex Energy · Grid Operations Dashboard</div><span class="m">Wind · Solar · Battery storage · Head of Grid Infrastructure &amp; Power Operations</span></div><button id="cfg">Configure thresholds</button></header>
+<section class="kp" id="kp" aria-label="Summary metrics"></section>
+<div class="main">
+<aside class="col"><div class="c" id="fleet"></div><div class="c" id="bat"></div></aside>
+<section class="col"><div class="c tc"><div class="tc1"><div><p class="t">Shared chart time range</p><span class="m">Applies to all 4 charts</span></div><span class="bdg">⛓ Charts synced</span></div>
+<div class="tc2"><div class="seg" role="group" aria-label="Time range for all charts" id="rng"><button data-r="6">6 h</button><button data-r="12">12 h</button><button data-r="24">24 h</button><button data-r="168">7 d</button></div><div class="m" id="win"></div></div>
+<div class="m tc3">Hover over any chart, or press ← → on a focused chart, to move the shared cursor.</div></div>
+<div id="charts" class="col"></div></section>
+<section class="c" id="panel"><p class="t">Assets &amp; maintenance</p>
+<div class="fl"><label>Asset type<select id="ft"><option>All</option><option>Wind</option><option>Solar</option><option>Battery</option></select></label>
+<label>Maintenance status<select id="fm"><option>All</option><option>Unplanned</option><option>In progress</option><option>Scheduled</option><option>None</option></select></label>
+<label>Alert state<select id="fs"><option value="All">All</option><option value="fault">Fault</option><option value="warn">Warning</option><option value="maint">Maintenance</option><option value="ok">Operating</option></select></label></div>
+<div class="rh"><span>Asset</span><span>Status</span><span>Finding · maintenance</span></div><div id="list" role="listbox" aria-label="Assets"></div><div id="det"></div></section>
+</div></div>
+<dialog id="dlg"><p class="t">Configure thresholds</p><span class="m">Placeholders – set to your engineering limits.</span>
+<label>Thermal safe limit (°C)<input id="l_t" type="number" step="1"></label><label>Vibration safe limit (mm/s RMS)<input id="l_v" type="number" step="0.1"></label>
+<label>Battery reserve floor (% SoC)<input id="l_soc" type="number" step="1"></label><label>Battery SoH threshold (%)<input id="l_soh" type="number" step="0.5"></label>
+<label>Availability target (%) – blank = not set<input id="l_av" type="number" step="0.1"></label>
+<div class="h" style="margin-top:14px"><button id="rst">Reset defaults</button><span><button id="can">Cancel</button> <button id="sav" style="background:#1F3A57;border:2px solid #5AB0FF">Save</button></span></div></dialog>
+<script>
+const $=s=>document.querySelector(s),N=168,D={t:95,v:6,soc:20,soh:85,av:null};
+let S={range:24,type:'All',m:'All',s:'All',sel:{Wind:'WTG-07',Solar:'INV-C3',Battery:'BESS-02'},cur:0,lim:{...D}},RO={};
+const rnd=s=>()=>(s=s*16807%2147483647)/2147483647,dd=h=>.5-.5*Math.cos(2*Math.PI*(h-2)/24);
+const ser=(seed,b,p)=>{const r=rnd(seed);return Array.from({length:N},(_,i)=>{const f=(i/24|0)==6?1:.88+.12*r();return +(b+(p-b)*dd(i%24)*f+(r()-.5)*(p-b)*.06).toFixed(1)})};
+const A=[
+{id:'WTG-12',ty:'Wind',s:'fault',m:'Unplanned',nx:'Crew dispatched',fd:'Pitch-system trip · offline since 09:40',b:60,p:80,vb:3,vp:4},
+{id:'WTG-07',ty:'Wind',s:'ok',m:'None',nx:'Next service 14 Nov',b:62,p:101,vb:3,vp:6.9},
+{id:'WTG-03',ty:'Wind',s:'ok',m:'None',nx:'Next service 20 Nov',b:58,p:82,vb:2.8,vp:4.1},
+{id:'WTG-19',ty:'Wind',s:'maint',m:'In progress',nx:'Blade service ends 25 Oct',fd:'Blade service in progress',b:55,p:70,vb:2.5,vp:3.5},
+{id:'INV-C3',ty:'Solar',s:'ok',m:'Scheduled',nx:'Filter clean 28 Oct',b:56,p:90},
+{id:'INV-C1',ty:'Solar',s:'ok',m:'None',nx:'Next service 02 Dec',b:55,p:78},
+{id:'INV-C7',ty:'Solar',s:'maint',m:'In progress',nx:'Ends 24 Oct',fd:'String re-torque',b:54,p:72},
+{id:'BESS-01',ty:'Battery',s:'ok',m:'None',nx:'Next test 30 Nov',soh:91.2,cap:45.6,nom:50,ef:94.1,o:8},
+{id:'BESS-02',ty:'Battery',s:'ok',m:'Scheduled',nx:'Capacity test 29 Oct',soh:84.1,cap:33.6,nom:40,ef:91.8,o:0},
+{id:'BESS-03',ty:'Battery',s:'maint',m:'Scheduled',nx:'Cell balancing 24–26 Oct',fd:'Cell-balancing cycle',soh:88.7,cap:26.6,nom:30,ef:93,o:-6}];
+A.forEach((a,i)=>{if(a.b!=null)a.T=ser(11+i,a.b,a.p);if(a.vb!=null)a.V=ser(31+i,a.vb,a.vp);if(a.ty=='Battery')a.C=Array.from({length:N},(_,j)=>+(55+a.o+28*Math.sin(2*Math.PI*(j%24-6)/24)).toFixed(1))});
+const F=Array.from({length:N},(_,i)=>+(60+130*dd(i%24)*(.9+.1*Math.sin((i/24|0)*1.3+1))).toFixed(1));
+const G=F.map((f,i)=>{const h=i%24,sf=(i/24|0)==6&&h>=10&&h<=18?.2*Math.sin(Math.PI*(h-10)/8):0;return +(f*(.98-sf)).toFixed(1)});
+const L=()=>S.lim,mx=a=>Math.max(...a.slice(144)),fmt=n=>Math.round(n).toLocaleString('en-US');
+const ST={fault:['■','Fault','f'],warn:['▲','Warning','w'],maint:['◆','Maintenance','mt'],ok:['●','Operating','ok']};
+function stat(a){if(a.s!='ok')return a.s;if(a.ty=='Battery')return a.soh<L().soh?'warn':'ok';return mx(a.T)>L().t||(a.V&&mx(a.V)>L().v)?'warn':'ok'}
+function find(a){if(a.s!='ok')return a.fd;if(a.ty=='Battery')return`SoH ${a.soh} %${a.soh<L().soh?' ▲ below '+L().soh+' %':''} · eff. ${a.ef} %`;
+ const t=mx(a.T),v=a.V&&mx(a.V);return(a.ty=='Wind'?'Gearbox ':'Cluster ')+t.toFixed(0)+' °C'+(t>L().t?' ▲':'')+(v?` · vib ${v.toFixed(1)} mm/s`+(v>L().v?' ▲':''):'')}
+const ord={fault:0,warn:1,maint:2,ok:3},get=id=>A.find(a=>a.id==id);
+function tl(i){const n=S.range,t=new Date(Date.UTC(2026,9,24)-(n-1-i)*36e5);return n>24?`${t.getUTCDate()} Oct`:String(t.getUTCHours()).padStart(2,'0')+':00'}
+const lg=(d,c,t)=>`<span><svg width="26" height="10" aria-hidden="true" style="display:inline"><line x1="0" x2="26" y1="5" y2="5" stroke="${c}" stroke-width="2.5" stroke-dasharray="${d}"/></svg> ${t}</span>`;
+function chart(id,title,sub,ss,o){const n=S.range,st=N-n,H=o.last?158:130,X=i=>56+i*768/(n-1),Y=v=>130-(v-o.min)/(o.max-o.min)*110;let g='';
+ [0,.5,1].forEach(k=>{const v=o.min+k*(o.max-o.min);g+=`<line x1="56" x2="824" y1="${Y(v)}" y2="${Y(v)}" stroke="#2A3441"/><text x="48" y="${Y(v)+4}" text-anchor="end" fill="#A9B4C2" font-size="11">${Math.round(v)}</text>`});
+ for(let k=0;k<=6;k++){const i=k*(n-1)/6;g+=`<line x1="${X(i)}" x2="${X(i)}" y1="20" y2="130" stroke="#222B37"/>`+(o.last?`<text x="${X(i)}" y="152" text-anchor="middle" fill="#A9B4C2" font-size="11">${tl(Math.round(i))}</text>`:'')}
+ if(o.gap){const a=ss[0].v,b=ss[1].v,p=i=>`${X(i)},${Y(a[st+i])}`,q=i=>`${X(i)},${Y(b[st+i])}`,I=[...Array(n).keys()];g+=`<defs><pattern id="ht" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line y2="6" stroke="#FFB454" stroke-width="2"/></pattern></defs><polygon points="${I.map(p).join(' ')} ${I.reverse().map(q).join(' ')}" fill="url(#ht)" opacity=".7"/>`}
+ if(o.lim!=null)g+=`<line x1="56" x2="824" y1="${Y(o.lim)}" y2="${Y(o.lim)}" stroke="#FFB454" stroke-width="2" stroke-dasharray="10 5"/><text x="60" y="${Y(o.lim)-5}" fill="#FFB454" font-size="11" font-weight="600">${o.ll}</text>`;
+ let out=0;ss.forEach(s=>{g+=`<polyline points="${Array.from({length:n},(_,i)=>X(i)+','+Y(s.v[st+i])).join(' ')}" fill="none" stroke="${s.c}" stroke-width="3" stroke-dasharray="${s.d}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  if(s.o)for(let i=0;i<n;i++){const v=s.v[st+i];if(o.dir>0?v>o.lim:v<o.lim){out++;g+=`<path d="M${X(i)} ${Y(v)-6}l6 6-6 6-6-6z" fill="#FFB454" stroke="#0E1319"/>`}}});
+ g+=`<line class="cur" y1="14" y2="130" stroke="#E8EDF3" stroke-width="1.5" stroke-dasharray="2 3"/>`;
+ RO[id]=i=>ss.map(s=>`${s.n} ${s.v[st+i]}`).join(' · ')+' '+o.u;
+ return`<div class="c"><div><p class="t">${title}</p><span class="m">${sub}</span></div><div class="ch2"><div class="lg">${ss.map(s=>lg(s.d,s.c,s.n)).join('')}${o.lim!=null?lg('10 5','#FFB454',o.ln||'Safe limit'):''}${out?`<span class="w">◆ ${out} out of range</span>`:''}</div><div class="ro" id="ro-${id}"></div></div>
+ <svg data-n="${n}" tabindex="0" viewBox="0 6 840 ${H}" width="100%" role="img" aria-label="${title}. ${out} readings out of range. Use arrow keys to move the shared cursor.">${g}</svg></div>`}
+function charts(){RO={};const w=get(S.sel.Wind),s=get(S.sel.Solar),b=get(S.sel.Battery),n=S.range,sl=a=>a.slice(N-n);
+ $('#charts').innerHTML=
+ chart('g','Energy generated vs. contracted forecast','MWh per hour · fleet total',[{n:'Actual',v:G,c:'#5AB0FF',d:'0'},{n:'Forecast',v:F,c:'#C9D3DF',d:'7 5'}],{min:0,max:200,u:'MWh/h',gap:1})+
+ chart('t',`Thermal – ${w.id} gearbox &amp; ${s.id} inverter cluster`,'Temperature, °C',[{n:w.id+' gearbox',v:w.T,c:'#5AB0FF',d:'0',o:1},{n:s.id+' inverter',v:s.T,c:'#4FD1A5',d:'2 4',o:1}],{min:40,max:120,lim:L().t,ll:`Safe limit ${L().t} °C`,dir:1,u:'°C'})+
+ chart('v',`Vibration – ${w.id} gearbox gear-mesh band (≈412 Hz)`,'Amplitude, mm/s RMS',[{n:w.id,v:w.V,c:'#5AB0FF',d:'0',o:1}],{min:0,max:10,lim:L().v,ll:`Safe limit ${L().v} mm/s`,dir:1,u:'mm/s'})+
+ chart('s',`Battery state of charge – ${b.id}`,'% of usable energy · same time axis (UTC)',[{n:'SoC',v:b.C,c:'#C9A4FF',d:'0',o:1}],{min:0,max:100,lim:L().soc,ll:`Reserve floor ${L().soc} %`,dir:-1,u:'%',ln:'Reserve floor',last:1});
+ setCur(S.cur)}
+function setCur(i){const n=S.range;S.cur=i=Math.max(0,Math.min(n-1,i));document.querySelectorAll('.cur').forEach(l=>{const x=56+i*768/(n-1);l.setAttribute('x1',x);l.setAttribute('x2',x)});
+ for(const k in RO){const e=$('#ro-'+k);if(e)e.textContent=tl(i)+' UTC · '+RO[k](i)}}
+function resetCur(){S.cur=S.range>11?S.range-11:S.range>>1}
+function kpis(){const n=S.range,st=N-n,sum=a=>a.slice(st).reduce((x,y)=>x+y,0),ga=sum(G),gf=sum(F),df=ga-gf,cu=sum(F)*.031,al=A.map(stat),nf=al.filter(x=>x=='fault').length,nw=al.filter(x=>x=='warn').length,av=96.8,t=L().av;
+ const k=(l,v,u,s)=>`<div class="c"><span class="m">${l}</span><div class="k">${v}<span class="u"> ${u}</span></div><div class="ks">${s}</div></div>`,lb=n==168?'7 d':n+' h';
+ $('#kp').innerHTML=k(`Energy generated vs. forecast (${lb})`,fmt(ga),'MWh',`<b class="${df<0?'w':'ok'}">${df<0?'▼':'▲'} ${df<0?'−':'+'}${fmt(Math.abs(df))} MWh (${(df/gf*100).toFixed(1)} %)</b> vs. ${fmt(gf)} MWh contracted`)+
+ k(`Grid curtailment loss (${lb})`,fmt(cu),'MWh','<b>3.1 %</b> of potential output · grid-instructed')+
+ k('Asset availability (fleet)',av,'%',t==null?'Target: <b class="w">not set</b> · use “Configure thresholds”':`Target ${t} % · <b class="${av>=t?'ok':'w'}">${av>=t?'✓ meets target':'▼ '+(t-av).toFixed(1)+' pts below'}</b>`)+
+ k('Mean Time Between Failures','1,420','h','Wind 1,180 · Solar 2,340 · Battery 1,610 (90 d)')+
+ k('Open alerts (sample assets)',nf+nw,'',`<b class="f">■ ${nf} Fault</b> · <b class="w">▲ ${nw} Warning</b> · ${al.filter(x=>x=='maint').length} in maintenance`)}
+function fleet(){const f=[['Wind','48 turbines · 612 MW now',41,4,1,2],['Solar','36 inverter clusters · 388 MW now',31,3,0,2],['Battery','3 units · 120 MWh nameplate',1,1,0,1]];
+ $('#fleet').innerHTML='<p class="t">Fleet overview – current status</p><span class="m">Select a group to filter the asset list</span>'+f.map(x=>`<div class="g"><button class="gb" data-ty="${x[0]}" aria-pressed="${S.type==x[0]}"><div class="h"><b>${x[0]}</b><span class="m">${x[1]}</span></div><div class="chs"><span class="ok">● ${x[2]} Operating</span><span class="w">▲ ${x[3]} Warning</span><span class="f">■ ${x[4]} Fault</span><span class="mt">◆ ${x[5]} Maintenance</span></div></button></div>`).join('')}
+function bat(){const mr=(l,p,v,t)=>`<div class="mr"><span>${l}</span><div class="tr"><i style="width:${p}%"></i><u style="left:${t}%"></u></div><b>${v}</b></div>`;
+ $('#bat').innerHTML='<p class="t">Battery health</p><span class="m">▏ marker = threshold (configurable) · select a unit to chart it</span>'+A.filter(a=>a.ty=='Battery').map(a=>{const s=ST[stat(a)];return`<div class="g"><button class="gb" data-id="${a.id}" aria-pressed="${S.sel.Battery==a.id}"><div class="h"><b>${a.id}</b><span class="${s[2]}">${s[0]} ${s[1]}</span></div>${mr('SoH',a.soh,a.soh+' %',L().soh)}${mr('Capacity',a.cap/a.nom*100,a.cap+' / '+a.nom+' MWh',85)}${mr('Discharge eff.',a.ef,a.ef+' %',90)}</button></div>`}).join('')}
+function list(){const v=A.filter(a=>(S.type=='All'||a.ty==S.type)&&(S.m=='All'||a.m==S.m)&&(S.s=='All'||stat(a)==S.s)).sort((a,b)=>ord[stat(a)]-ord[stat(b)]);
+ $('#list').innerHTML=v.map(a=>{const s=ST[stat(a)];return`<div class="r" role="option" tabindex="0" data-id="${a.id}" aria-selected="${S.sel[a.ty]==a.id}"><b>${a.id}</b><span class="${s[2]}">${s[0]} ${s[1]}</span><span>${find(a)}<br><i class="m">${a.m=='None'?'No maintenance':a.m} · ${a.nx}</i></span></div>`}).join('')||'<p class="m">No assets match these filters.</p>';
+ $('#list').insertAdjacentHTML('afterend','')}
+function det(){const a=get(S.sel[S.type!='All'?S.type:'Wind']);return a}
+function detail(id){const a=get(id||S.last||'WTG-07'),s=ST[stat(a)],row=(l,v,lim,bad)=>`<div class="h" style="border-top:1px solid #2A3441;padding:6px 0"><span>${l}</span><span>${v}${lim?` <span class="m">(limit ${lim})</span>`:''} <b class="${bad?'w':'ok'}">${bad?'▲ Out of range':'✓ In range'}</b></span></div>`;let r='';
+ if(a.T)r+=row(a.ty=='Wind'?'Gearbox temp (24 h max)':'Inverter cluster temp (24 h max)',mx(a.T).toFixed(0)+' °C',L().t+' °C',mx(a.T)>L().t);if(a.V)r+=row('Gear-mesh vibration (24 h max)',mx(a.V).toFixed(1)+' mm/s',L().v+' mm/s',mx(a.V)>L().v);
+ if(a.soh)r+=row('State of Health',a.soh+' %','≥ '+L().soh+' %',a.soh<L().soh)+row('Remaining capacity',a.cap+' / '+a.nom+' MWh','',0)+row('Discharge efficiency',a.ef+' %','',0)+row('Min SoC (24 h)',Math.min(...a.C.slice(144)).toFixed(0)+' %','≥ '+L().soc+' %',Math.min(...a.C.slice(144))<L().soc);
+ $('#det').innerHTML=`<div class="c" style="margin-top:10px;background:#111820"><div class="h"><b>${a.id} · ${a.ty}</b><span class="${s[2]}">${s[0]} ${s[1]}</span></div><div class="m">Maintenance: ${a.m} · ${a.nx} · shown on charts</div>${r}<div class="h" style="margin-top:10px"><span id="msg" class="m" role="status"></span><button id="sch" ${a.m=='Scheduled'||a.s!='ok'&&a.s!='warn'?'disabled':''}>Schedule inspection</button></div></div>`;
+ const b=$('#sch');if(b)b.onclick=()=>{a.m='Scheduled';a.nx='Inspection requested 25 Oct';all();$('#msg').textContent='Inspection scheduled (sample action)'}}
+function pick(id){const a=get(id);S.sel[a.ty]=id;S.last=id;all()}
+function all(){kpis();fleet();bat();list();detail();charts();document.querySelectorAll('#rng button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.r==S.range));
+ const n=S.range,f=i=>new Date(Date.UTC(2026,9,24)-(n-1-i)*36e5).toUTCString().slice(5,22);$('#win').innerHTML=`<b style="color:#E8EDF3">${f(0)}</b> → <b style="color:#E8EDF3">${f(n-1)}</b> UTC<br>1 h resolution`}
+$('#rng').onclick=e=>{const r=e.target.dataset.r;if(r){S.range=+r;resetCur();all()}};
+$('#fleet').onclick=e=>{const b=e.target.closest('[data-ty]');if(b){S.type=S.type==b.dataset.ty?'All':b.dataset.ty;$('#ft').value=S.type;all()}};
+$('#bat').onclick=e=>{const b=e.target.closest('[data-id]');if(b)pick(b.dataset.id)};
+$('#list').onclick=e=>{const b=e.target.closest('[data-id]');if(b)pick(b.dataset.id)};
+$('#list').onkeydown=e=>{if(e.key=='Enter'||e.key==' '){const b=e.target.closest('[data-id]');if(b){e.preventDefault();pick(b.dataset.id);const x=document.querySelector(`.r[data-id="${b.dataset.id}"]`);x&&x.focus()}}};
+[['ft','type'],['fm','m'],['fs','s']].forEach(([i,k])=>$('#'+i).onchange=e=>{S[k]=e.target.value;all()});
+const ch=$('#charts');ch.onmousemove=e=>{const s=e.target.closest('svg');if(!s)return;const r=s.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*840;setCur(Math.round((x-56)/768*(S.range-1)))};
+ch.onkeydown=e=>{if(e.key=='ArrowLeft'){e.preventDefault();setCur(S.cur-1)}if(e.key=='ArrowRight'){e.preventDefault();setCur(S.cur+1)}};
+const I={t:'l_t',v:'l_v',soc:'l_soc',soh:'l_soh',av:'l_av'},dl=$('#dlg');
+$('#cfg').onclick=()=>{for(const k in I)$('#'+I[k]).value=S.lim[k]??'';dl.showModal()};$('#can').onclick=()=>dl.close();
+$('#rst').onclick=()=>{for(const k in I)$('#'+I[k]).value=D[k]??''};
+$('#sav').onclick=()=>{for(const k in I){const v=$('#'+I[k]).value;S.lim[k]=v===''?null:+v;if(S.lim[k]==null&&k!='av')S.lim[k]=D[k]}dl.close();all()};
+resetCur();S.last='WTG-07';all();
+</script></body></html>
